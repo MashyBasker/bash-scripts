@@ -1,5 +1,7 @@
 # Bash scripts
 
+### Exercises to learn shell scripting
+
 To make a bash script a command line utility
 
 1. Create `~/bin` directory
