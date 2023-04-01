@@ -8,5 +8,5 @@ To make a bash script a command line utility
 
 I pushed `dogit` to Github using `dogit`
 
-
+![dogit](./assets/image.png)
 
