@@ -1,0 +1,98 @@
+#!/usr/bin/bash
+
+# Automating the usage of git commands
+# TODO: Add fetch & pull functionality
+
+# stop executing if some error occurs
+set -e
+
+############################################# UTILITY METHODS ################################################
+
+repeat_display() {
+	# @params: $1 => character, $2 => no. of time to repeat
+	# @job:	displays the character $1 for $2 number of times
+	for ((i=1; i <= $2; i++)); do
+		printf "$1"
+	done
+    printf "+"
+	printf "\n"
+}
+
+
+# for pretty displaying of messages
+show_msg() {
+	# @param: Message to display
+	# @job:	displays a message in pretty format
+	msg=$1	# stores the message in a variable
+	n=${#msg}	# calculates the length of the message
+    printf "+"
+	repeat_display "-" $((n+2))
+	echo "| $msg |"
+    printf "+"
+	repeat_display "-" $((n+2))
+}
+
+###############################################################################################################
+
+########################################## SCRIPT METHODS #####################################################
+
+# creating a new repository/project
+new() {
+	# @param: None
+	# @job:	initialises an empty git repository and makes the first commit
+	echo "# $1" >> README.md
+	git init
+	git add README.md
+	git commit -m "Initial commit"
+	git branch -M main
+	show_msg "New repository $1 successfully created"
+}
+
+# committing the changes
+save() {
+	if [ "$1" == "--all" ]
+	then
+		if [ "$2" == "-b" ]
+		then
+			git switch "$3"
+			git add .
+			git commit -m "$2"
+			show_msg "Changes committed successfully"
+		else
+			git add .
+			git commit -m "$2"
+			show_msg "Changes committed successfully"
+		fi
+	else
+		git add "$@"
+		show_msg "Changes added: use `git commit -m \"<commit_message>\"` to commit selected changes"
+	fi 
+}
+
+send() {
+	if [ -z "$1" ]
+	then
+		git remote add origin "$1"
+		git push -u origin main
+	else
+		git push
+	fi 
+}
+
+###############################################################################################################
+
+if [ $1 == "save" ]
+then
+	save "$2" "$3" "$4"
+fi
+
+if [ $1 == "new" ]
+then 
+	new "$2"
+fi 
+
+if [ $1 == "send" ]
+then 
+	send "$2"
+fi 
+

@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+repeat_display() {
+	# @params: $1 => character, $2 => no. of time to repeat
+	# @job:	displays the character $1 for $2 number of times
+	for ((i=1; i <= $2; i++)); do
+		printf "$1"
+	done
+    printf "+"
+	printf "\n"
+}
+
+show_msg() {
+	# @param: Message to display
+	# @job:	displays a message in pretty format
+	msg=$1	# stores the message in a variable
+	n=${#msg}	# calculates the length of the message
+    printf "+"
+	repeat_display "-" $((n+2))
+	echo "| $msg |"
+    printf "+"
+	repeat_display "-" $((n+2))
+}
+
+show_msg "$1"
