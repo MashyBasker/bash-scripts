@@ -72,10 +72,12 @@ save() {
 send() {
 	if [ -z "$1" ]
 	then
+		git push
+		show_msg "Commits pushed successfully"
+	else
 		git remote add origin "$1"
 		git push -u origin main
-	else
-		git push
+		show_msg "Commits pushed successfully"
 	fi 
 }
 
