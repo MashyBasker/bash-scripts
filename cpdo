@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+dir="$(pwd)"
+
+if [[ $dir != "/home/okabe/Documents/work/cp" ]];
+then
+	echo "Incorrect path!"
+	exit
+fi
+
+rm -rf .cph
+rm *
+for i in {1..7};
+do
+	touch $i.cpp
+done
+
+code .
